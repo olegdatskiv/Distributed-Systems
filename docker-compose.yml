@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  master_server:
+    build: master_server/
+    restart: always
+    environment:
+      - TZ = Europe/Kiev
+    ports:
+      - 8000:8000
+
+  secondary_server_v1:
+    build: secondary_server_v1/
+    restart: always
+    environment:
+      - TZ = Europe/Kiev
+    ports:
+      - 8000:8000
+
+  secondary_server_v2:
+    build: secondary_server_v2/
+    restart: always
+    environment:
+      - TZ = Europe/Kiev
+    ports:
+      - 8000:8000
