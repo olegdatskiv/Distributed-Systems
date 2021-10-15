@@ -5,19 +5,44 @@ from pydantic import BaseModel
 app = FastAPI()
 
 class Message(BaseModel):
-    id: int
     text: str
-    additional: Optional[str] = None
 
 class MessageId(BaseModel):
     message_id: int
 
 MESSAGE_STORE = {} #created messages will be stored in a dict
 
+class Master:
+    def __init__(self):
+        self._log = {}
+
+    def get_last_message_id(self):
+        if len(self._log) == 0:
+            return 0
+        return len(self._log) - 1
+
+    def append_msg(self, msg: str):
+        prev_id = self.get_last_message_id()
+        self._log[prev_id + 1] = msg
+
+    def list_msgs(self):
+        return list(self._log.values())
+
+MASTER = Master()
 
 @app.get("/")
 async def get_main():
     return "This is a master node"
+
+@app.post('/append_msg')
+async def append_msg(msg: Message):
+    print('im here!')
+    MASTER.append_msg(msg.text)
+    return 'ok'
+
+@app.get('/list_msgs')
+async def list_msgs():
+    return MASTER.list_msgs()
 
 # a method to get message by its id
 @app.get("/messages/message/{message_id}")
