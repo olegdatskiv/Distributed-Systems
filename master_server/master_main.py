@@ -13,7 +13,7 @@ class MessageId(BaseModel):
     message_id: int
 
 
-class MessageToNode(BaseModel):
+class MessageToNode():
     id: int
     text: str
 
@@ -22,7 +22,7 @@ MESSAGE_STORE = {}  # created messages will be stored in a dict
 
 
 class Master:
-    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8002', host_node_v2: str = 'http://127.0.0.3:8003'):
+    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8080', host_node_v2: str = 'http://127.0.0.3:8081'):
         self._log = {}
         self._host_node_v1 = host_node_v1
         self._host_node_v2 = host_node_v2
@@ -38,8 +38,9 @@ class Master:
         data = MessageToNode()
         data.id = prev_id + 1
         data.text = msg
-        requests.post(self._host_node_v1, data)
-        requests.post(self._host_node_v2, data)
+        res = requests.post(self._host_node_v1, {"id":data.id, "text":data.text})
+        print(res)
+        # requests.post(self._host_node_v2, data)
 
     def list_msgs(self):
         return list(self._log.values())
@@ -55,7 +56,7 @@ async def get_main():
 
 @app.post('/append_msg')
 async def append_msg(msg: Message):
-    print('im here!')
+    print('im - master - here!')
     MASTER.append_msg(msg.text)
     return 'ok'
 

@@ -3,7 +3,7 @@ import requests
 import argparse
 
 class Client:
-    def __init__(self, host: str = 'http://127.0.0.1:8001'):
+    def __init__(self, host: str = 'http://127.0.0.1:8000'):
         self.host = host
 
     def prepare_output(self, response: requests.Response):
@@ -24,8 +24,8 @@ if __name__ == '__main__':
     client = Client()
     print(client.list_msgs())
     print(client.append_msg('m1'))
-    # print(client.append_msg('m2'))
-    print(client.list_msgs())
+    print(client.append_msg('m2'))
+#     print(client.list_msgs())
     # parser = argparse.ArgumentParser()
     # parser.add_argument('--host', default='http://127.0.0.1:8000') #define the default host address
 #%%
