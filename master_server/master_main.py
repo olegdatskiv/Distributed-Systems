@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from typing import Optional
 from pydantic import BaseModel
 import requests
 
@@ -23,7 +22,7 @@ MESSAGE_STORE = {}  # created messages will be stored in a dict
 
 
 class Master:
-    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8000', host_node_v2: str = 'http://127.0.0.3:8000'):
+    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8002', host_node_v2: str = 'http://127.0.0.3:8003'):
         self._log = {}
         self._host_node_v1 = host_node_v1
         self._host_node_v2 = host_node_v2

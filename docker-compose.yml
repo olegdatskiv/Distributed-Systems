@@ -4,23 +4,17 @@ services:
   master_server:
     build: master_server/
     restart: always
-    environment:
-      - TZ = Europe/Kiev
     ports:
-      - 8000:8000
+      - 127.0.0.1:8001:8001
 
   secondary_server_v1:
     build: secondary_server_v1/
     restart: always
-    environment:
-      - TZ = Europe/Kiev
     ports:
-      - 8000:8000
+      - 127.0.0.2:8002:8002
 
   secondary_server_v2:
     build: secondary_server_v2/
     restart: always
-    environment:
-      - TZ = Europe/Kiev
     ports:
-      - 8000:8000
+      - 127.0.0.3:8003:8003

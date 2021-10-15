@@ -3,7 +3,7 @@ import requests
 import argparse
 
 class Client:
-    def __init__(self, host: str = 'http://127.0.0.1:8000'):
+    def __init__(self, host: str = 'http://127.0.0.1:8001'):
         self.host = host
 
     def prepare_output(self, response: requests.Response):
