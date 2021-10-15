@@ -22,7 +22,7 @@ MESSAGE_STORE = {}  # created messages will be stored in a dict
 
 
 class Master:
-    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8080', host_node_v2: str = 'http://127.0.0.3:8081'):
+    def __init__(self, host_node_v1: str = 'http://127.0.0.2:8081', host_node_v2: str = 'http://127.0.0.3:8082'):
         self._log = {}
         self._host_node_v1 = host_node_v1
         self._host_node_v2 = host_node_v2
@@ -38,7 +38,7 @@ class Master:
         data = MessageToNode()
         data.id = prev_id + 1
         data.text = msg
-        res = requests.post(self._host_node_v1, {"id":data.id, "text":data.text})
+        res = requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
         print(res)
         # requests.post(self._host_node_v2, data)
 
