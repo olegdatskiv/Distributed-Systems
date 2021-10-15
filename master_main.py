@@ -9,35 +9,39 @@ class Message(BaseModel):
     text: str
     additional: Optional[str] = None
 
-message_store = {} #created messages will be stored in a dict
+class MessageId(BaseModel):
+    message_id: int
+
+MESSAGE_STORE = {} #created messages will be stored in a dict
 
 
 @app.get("/")
 async def get_main():
-    return "This is a test"
+    return "This is a master node"
 
 # a method to get message by its id
-@app.get("/messages/{message_id}")
+@app.get("/messages/message/{message_id}")
 async def read_message(message_id: int):
-    if message_id in message_store:
-        return message_store[message_id]
+    if message_id in MESSAGE_STORE:
+        return MESSAGE_STORE[message_id]
     else:
         return "Message with this id does not exist"
 
 # a method to get an id of a latest message (to assign a new id to a new message)
 @app.get("/messages/last_message_id")
-async def get_last_message_ind(m_store = message_store):
+async def get_last_message_ind() -> int:
     # get the len of our message storage 
-    return len(m_store)-1
+    print('last_message_id called, returns:', len(MESSAGE_STORE) - 1)
+    return len(MESSAGE_STORE)-1
     # return "Whoops"
 
 # post a message
 @app.post("/messages/{message_id}")
-async def create_message(message_id: int, message_text: str, message: Message, message_store = message_store):
-    message_dict = message.dict()
+async def create_message(message_id: int, message_text: str):
+    message_dict = {}
     message_dict['id'] = message_id
     message_dict['text'] = message_text
 
-    message_store.update({message_id:message_dict}) #does not work like that - why?
-    
+    MESSAGE_STORE.update({message_id:message_dict}) #does not work like that - why?
+
     return f'Successfully created a message\n {message_dict}'
