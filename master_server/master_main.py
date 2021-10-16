@@ -38,9 +38,8 @@ class Master:
         data = MessageToNode()
         data.id = prev_id + 1
         data.text = msg
-        res = requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
-        print(res)
-        # requests.post(self._host_node_v2, data)
+        requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
+        requests.post(f"{self._host_node_v2}/append_msg", json={"id": data.id, "text": data.text})
 
     def list_msgs(self):
         return list(self._log.values())
