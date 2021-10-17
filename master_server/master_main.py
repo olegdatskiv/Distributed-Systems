@@ -9,10 +9,6 @@ class Message(BaseModel):
     text: str
 
 
-# class MessageId(BaseModel):
-#     message_id: int
-
-
 class MessageToNode(BaseModel):
     id: int = None
     text: str = None
@@ -45,6 +41,7 @@ class Master:
         msgs_list = [f'{k}: {v}' for k, v in self._log.items()]
         return msgs_list
 
+
 MASTER = Master()
 
 
@@ -56,7 +53,7 @@ async def get_main():
 @app.post('/append_msg')
 async def append_msg(msg: Message):
     r = MASTER.append_msg(msg.text)
-    return(r)
+    return r
 
 
 @app.get('/list_msgs')
@@ -79,7 +76,6 @@ async def get_last_message_ind() -> int:
     # get the len of our message storage 
     print('last_message_id called, returns:', len(MESSAGE_STORE) - 1)
     return len(MESSAGE_STORE) - 1
-    # return "Whoops"
 
 
 # post a message

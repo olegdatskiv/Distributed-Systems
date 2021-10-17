@@ -6,16 +6,16 @@ services:
     restart: always
     ports:
       - 127.0.0.1:8001:8001
-#    networks:
-#      - server
+    networks:
+      - default
 
   secondary_server_v1:
     build: secondary_server_v1/
     restart: always
     ports:
       - 127.0.0.2:8002:8002
-#    networks:
-#      - server
+    networks:
+      - default
 
 
   secondary_server_v2:
@@ -23,11 +23,10 @@ services:
     restart: always
     ports:
       - 127.0.0.3:8003:8003
-#    networks:
-#      - server
+    networks:
+      - default
 
 
 #networks:
 #  server:
-#     Use a custom driver
-#    driver: default
+#    driver: overlay # custom-driver-1
