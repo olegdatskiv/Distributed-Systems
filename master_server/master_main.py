@@ -42,8 +42,8 @@ class Master:
         return f"Posted message '{data.text}' with id {data.id} on secondary nodes 1 and 2 successfully"
 
     def list_msgs(self):
-        return list(self._log.values())
-
+        msgs_list = [f'{k}: {v}' for k, v in self._log.items()]
+        return msgs_list
 
 MASTER = Master()
 
