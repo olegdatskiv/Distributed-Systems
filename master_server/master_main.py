@@ -36,7 +36,7 @@ class Master:
         prev_id = self.get_last_message_id()
         self._log[prev_id + 1] = msg
         data = MessageToNode()
-        data.id_ = prev_id + 1
+        data.id = prev_id + 1
         data.text = msg
         requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
         requests.post(f"{self._host_node_v2}/append_msg", json={"id": data.id, "text":data.text})
