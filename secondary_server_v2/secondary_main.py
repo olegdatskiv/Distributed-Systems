@@ -15,6 +15,7 @@ class Secondary:
 
     def append_msg(self, msg: Message):
         self._log[msg.id] = msg.text
+        print(f"Message #{self._log[msg.id]} appended to secondary node 2")
 
     def list_msgs(self):
         return list(self._log.values())
@@ -32,7 +33,7 @@ async def get_main():
 async def append_msg(msg: Message):
     print('im here!')
     SECONDARY.append_msg(msg)
-    return 'ok'
+    return 'secondary-1: ok'
 
 
 @app.get('/list_msgs')
