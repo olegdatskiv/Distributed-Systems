@@ -5,8 +5,8 @@ import requests
 app = FastAPI()
 
 
-# class Message(BaseModel):
-#     text: str
+class Message(BaseModel):
+    text: str
 
 
 # class MessageId(BaseModel):
@@ -39,11 +39,7 @@ class Master:
         data.id_ = prev_id + 1
         data.text = msg
         requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
-<<<<<<< HEAD
         requests.post(f"{self._host_node_v2}/append_msg", json={"id": data.id, "text":data.text})
-=======
-        requests.post(f"{self._host_node_v2}/append_msg", json={"id": data.id, "text": data.text})
->>>>>>> bf72d133cb8109ee232f54eeaedfe2cb8754252b
 
     def list_msgs(self):
         return list(self._log.values())
