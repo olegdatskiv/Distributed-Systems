@@ -28,18 +28,18 @@ class Master:
         self._host_node_v2 = host_node_v2
 
     def get_last_message_id(self):
-        if len(self._log) == 0:
-            return 0
         return len(self._log) - 1
 
     def append_msg(self, msg: str):
         prev_id = self.get_last_message_id()
+        print(prev_id)
         self._log[prev_id + 1] = msg
         data = MessageToNode()
         data.id = prev_id + 1
         data.text = msg
         requests.post(f"{self._host_node_v1}/append_msg", json={"id": data.id, "text":data.text})
         requests.post(f"{self._host_node_v2}/append_msg", json={"id": data.id, "text":data.text})
+        return f"Posted message '{data.text}' with id {data.id} on secondary nodes 1 and 2 successfully"
 
     def list_msgs(self):
         return list(self._log.values())
@@ -55,9 +55,8 @@ async def get_main():
 
 @app.post('/append_msg')
 async def append_msg(msg: Message):
-    print('im - master - here!')
-    MASTER.append_msg(msg.text)
-    return 'ok'
+    r = MASTER.append_msg(msg.text)
+    return(r)
 
 
 @app.get('/list_msgs')
