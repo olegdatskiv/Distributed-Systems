@@ -22,16 +22,16 @@ class Client:
 #%%
 if __name__ == '__main__':
     client = Client()
-    
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--host', default='http://127.0.0.1:8000') #define the default host address
 
     args = parser.parse_args()
 
     while True:
-        operation = int(input("Please select operation: (1) POST (2) GET:"))
+        operation = int(input("Please select operation: (1) POST (2) GET: "))
         if operation == 1:
-            message_text = input("Type your message here and press Return")
+            message_text = input("Type your message here and press Return: ")
             print(client.append_msg(message_text))
 
         elif operation == 2:
