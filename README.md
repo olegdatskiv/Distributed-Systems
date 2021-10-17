@@ -13,4 +13,14 @@ Add parameters `--host 127.0.0.2 --port 8081` when running one secondary node an
 ## How to access master node through client:
 Run `client_main.py`
 
-Then follow on-screen instructions.
+Use `python client_main.py`.
+
+## How to run from docker all nodes
+
+In CMD run:
+
+` $ docker-compose up --build `
+
+In new CMD tab run client from your local venv
+
+` python client_main.py `
