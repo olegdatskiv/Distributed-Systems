@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-  master_server:
-    build: master_server/
+  main_server:
+    build: main_server/
     restart: always
     ports:
       - 127.0.0.1:8001:8001
